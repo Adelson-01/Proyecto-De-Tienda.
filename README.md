@@ -6,7 +6,7 @@ Este proyecto es un programa en el que te encuentras en una tienda, puedes compr
 ## Como usar
 1. Compilar el programa.
 2. En el menu deberas de elegir que deseas comprar.
-3. Elige cierta cantidad valida de los articulos disponibles.
+3. Elegir cierta cantidad valida de los articulos disponibles.
 4. Si tienes la cantidad de oro (dinero) podras comprar.
 5. Al final te dice el total.
 
