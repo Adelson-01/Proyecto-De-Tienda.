@@ -1,0 +1,475 @@
+//Yadiel, Jose, Adelson
+//Programming Logic COMP 2120
+//Project
+
+#include <iostream>
+#include <ctime>
+#include <algorithm>
+#include <cstdlib>
+#include <limits>
+using namespace std;
+
+//Gpt Generated
+string to_lower(const string& str) {
+	string lower_str = str;
+	transform(lower_str.begin(), lower_str.end(), lower_str.begin(), ::tolower);
+	return lower_str;
+}
+
+int main() {
+
+	//YadielJose
+
+	srand(time(0));
+	float gold = rand() % 401 + 100; //random gold generator between 100 and 500
+
+	char menu_opt;
+
+	string opt, opt_menu, opt_item;
+
+	//JOSE ARRAY BLOCK (IMPORTANT)
+	string w_names[] = { "sword"/*0*/, "dagger"/*1*/, "javelin"/*2*/, "stick"/*3*/, "bow"/*4*/};  //WEAPON NAME ARRAY
+	float w_prices[] = { 100, 50, 75, 0.5, 90}; //BASE PRICE OF WEAPONS ARRAY
+	int w_stock[] = { 3, 5, 2, 10, 1};  //WEAPON STOCK ARRAY
+	int wstock_bought[] = {0, 0, 0, 0, 0}; //stock bought of each weapon
+	//ADELSONJOSE ARRAY BLOCK CLOTHING ///////////////////////////
+	string c_names[] = {"cloak"/*0*/,"helmet"/*1*/,"medallion"/*2*/,"underwear"/*3*/,"pants"/*4*/};
+	float c_prices[] = {60,80,40,10,35}; //BASE PRICE OF CLOTHING
+	int c_stock[] = {3,2,5,10,4}; //CLOTHING STOCK
+	int cstock_bought[] = {0,0,0,0,0}; //STOCK BOUGHT
+	/////////////////////////////////////
+	//ADELSONJOSE ARRAY BLOCK POTIONS ///////////////////////////
+	string p_names[] = {"strength","regeneration","stamina","invisibility"};
+	int p_prices[] = {10,15,20,30}; //BASE PRICE OF POTIONS
+	int p_stock[] = {5,2,6,1}; //POTIONS STOCK
+	int pstock_bought[] = {0,0,0,0}; //STOCK BOUGHT
+	/////////////////////////////////////
+	//ADELSONJOSE ARRAY BLOCK FOOD ///////////////////////////
+	string f_names[] = {"apples","bread","soup","beef"};
+	int f_prices[] = {1,2,4,10};//BASE PRICE OF FOOD
+	int f_stock[] = {10,10,10,5}; //FOOD STOCK
+	int fstock_bought[] = {0,0,0,0}; //STOCK BOUGHT
+	/////////////////////////////////////
+
+	//-----------------------------------------------------------------------------------------------------------------------
+	string want;
+	int buying = -1, quantity ;                                                //variables de cuando vas a comprar
+	string buy_opt; //si el usuario de vdd quiere comprar lo que marco
+	string cont="yes"; //si el usuario quiere seguir comprando
+	//-----------------------------------------------------------------------------------------------------------------------
+
+	srand(time(0));
+	int greet = rand() % 4 + 1;
+	int discount = rand() % 4 + 1;
+
+	//Yadiel
+
+	if(greet==1) {
+		cout<<"Melvin The Merchant: Hello there traveller! Welcome to Melvin's shop of pure necessities, I'm Melvin... and this is my shop... of necessities. \n";
+	} else if(greet==2) {
+		cout<<"Melvin The Merchant: Greetings, wanderer!\n";
+	} else if(greet==3) {
+		cout<<"Melvin The Merchant: Hello there... do I know you? You look like that Bond fellow I met a while back. Nah, can't be.\n";
+	} else if(greet==4) {
+		cout<<"Melvin The Merchant: One second, I'll be right out! Gosh darn hammer, can't find it anywhere... Oh, hi there.\n";
+	}
+
+	cout<<"Melvin The Merchant: Would you like to buy something? Please simply answer yes or no, I get confuzzled easily.\n";
+	getline(cin, opt); // fixed to prevent double input
+	opt = to_lower(opt);
+
+	while(opt != "yes" && opt != "no") {
+		cout<<"Melvin The Merchant: Sorry, I must have not heard you correctly. Would you like to buy something?\n";
+		getline(cin, opt); // fixed to prevent double input
+		opt = to_lower(opt);
+	}
+
+	if(opt == "yes") { //If prime
+
+		if(discount == 1) {
+			cout<<"\nMelvin The Merchant: Wonderful! Let me show you what I've got. Oh, and if you're looking for weapons, then you, sir, are in luck! I've got a discount on all weapons right now!\n";
+		}
+		else if(discount == 2) {
+			cout<<"\nMelvin The Merchant: Wonderful! Let me show you what I've got. Oh, and if you're looking for clothing, then you, sir, are in luck! I've got a discount on all clothing items right now!\n";
+		}
+		else if(discount == 3) {
+			cout<<"\nMelvin The Merchant: Wonderful! Let me show you what I've got. Oh, and if you're looking for potions, then you, sir, are in luck! I've got a discount on all my potions right now!\n";
+		}
+		else if(discount == 4) {
+			cout<<"\nMelvin The Merchant: Wonderful! Let me show you what I've got. Oh, and if you're looking for food, then you, sir, are in luck! I've got a discount on all food related items right now!\n";
+		}
+		
+		while (cont == "yes" ) {
+			cout<<"\nItems for sale:(1 - 4)\n\n";
+			//Discount code Adelson
+			cout<<"\n1. Weapons";
+			if(discount==1)cout<<" (25% discount)";
+
+			cout<<"\n2. Clothing";
+			if(discount==2)cout<<" (25% discount)";
+
+			cout<<"\n3. Potions";
+			if(discount==3)cout<<" (25% discount)";
+
+			cout<<"\n4. Food";
+			if(discount==4)cout<<" (25% discount)";
+
+			cout<<"\n\nYou have "<<gold<<" gold!\n";
+			cout << "\nEnter your option here: \n";
+
+			string menu_input;
+			getline(cin, menu_input); // mixed with ChatGPT generation
+			menu_opt = menu_input[0];
+
+			switch(menu_opt) {
+		    //Weapons case (YadielAdelsonJose mixed with small ChatGPT generation para prevenir doble input)
+			case '1': {
+
+				opt_menu = "weapons";
+
+				float display_price;
+				cout<<"\nMelvin The Merchant: Oh, you're in the market for weapons, well you've come to the right place, here's what I got:\n\n";
+				for (int i =0; i <5; i++) {
+					display_price = w_prices[i];
+					if(discount==1) display_price *= 0.75;
+					cout<<w_names[i]<<" - "<<display_price<<" gold"<<" - "<<wstock_bought[i]<<"/"<<w_stock[i]<<" bought\n" ;
+				}
+
+				cout<<"\nWeapons, huh? What is it you desire?: ";
+				getline(cin, want); // mixed with ChatGPT generation
+				want = to_lower(want);
+
+				buying = -1;
+				for (int i = 0; i<5; i++) {
+					if(want == w_names[i]) buying = i;
+				}
+
+				if(buying >= 0 && buying <= 4) {
+					cout<<"\n\nAlright! You want a "<<w_names[buying]<<", you must be some kind of warrior. How many would you like?: " ;
+					cin >> quantity;
+
+					if (cin.fail() || quantity <= 0 ) {
+						cin.clear();
+						cin.ignore(numeric_limits<streamsize>::max(), '\n'); //ChatGPT help
+						cout<<"\nPlease, enter a valid quantity.\n";
+						cout<<"Would you like to keep purchasing? ";
+						getline(cin, cont); // mixed with ChatGPT generation
+						cont=to_lower(cont);
+						continue;
+					}
+
+					cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+					if(quantity > (w_stock[buying] - wstock_bought[buying])) {
+						cout<<"Sorry man, I don't have that much.\n";
+						cout<<"Would you like to keep purchasing? ";
+						getline(cin, cont); // mixed with ChatGPT generation
+						cont=to_lower(cont);
+						break;
+					} else {
+
+						float final_price = quantity * w_prices[buying];
+						if(discount==1) final_price *= 0.75;
+
+						cout<<"\nAre you sure you want to buy "<<quantity<<" "<< w_names[buying]<<" for: "<<final_price<<" gold"<<"?(yes/no): ";
+						getline(cin, buy_opt); // mixed with ChatGPT generation
+						buy_opt = to_lower(buy_opt);
+
+						if (buy_opt == "no") {
+							cout<<"\nAlright then.";
+						} else {
+							if(gold < final_price) {
+								cout<<"\nWhoa there comrade! That's not enough for what you're asking!\n";
+							} else {
+								if (wstock_bought[buying] + quantity > w_stock[buying]) {
+									cout<<"\n\nSorry man, don't got all that.\n";
+									cout<<"Would you like to keep purchasing? ";
+									getline(cin, cont); // mixed with ChatGPT generation
+									cont=to_lower(cont);
+								}
+								else {
+									gold = gold - final_price ;
+									cout<<"You have successfully bought "<<quantity<<" "<<w_names[buying]<<" for: "<<final_price<<"!\n";
+									cout<<"\nYou now have "<<gold<<" gold remaining.\n";
+
+									wstock_bought[buying]+= quantity;
+									cout<<"Would you like to keep purchasing? ";
+									getline(cin, cont); // mixed with ChatGPT generation
+									cont=to_lower(cont);
+								}
+							}
+						}
+					}
+				}
+			}
+			break;
+
+			//Clothing case (JoseYadiel)
+			case '2': {
+
+				opt_menu = "clothing";
+
+				float display_price;
+				cout<<"\nMelvin The Merchant: Alright! You can never go wrong with some clothes. I got you, here's what I got:\n\n";
+				for (int i =0; i <5; i++) {
+					display_price = c_prices[i];
+					if(discount==2) display_price *= 0.75;
+					cout<<c_names[i]<<" - "<<display_price<<" gold"<<" - "<<cstock_bought[i]<<"/"<<c_stock[i]<<" bought\n" ;
+				}
+
+				cout<<"\nWell then.. What will it be?: ";
+				getline(cin, want);
+				want = to_lower(want);
+
+				buying = -1;
+				for (int i = 0; i<5; i++) {
+					if(want == c_names[i]) buying = i;
+				}
+
+				if(buying >= 0 && buying <= 4) {
+					cout<<"\n\nAlright! You want a "<<c_names[buying]<<", I wouldn't like to be seen.. you know what i mean. How many would you like?: " ;
+					cin >> quantity;
+
+					if (cin.fail() || quantity <= 0) {
+						cin.clear();
+						cin.ignore(numeric_limits<streamsize>::max(), '\n'); //ChatGPT help
+						cout<<"Please, enter a valid quantity.\n";
+						cout<<"Would you like to keep purchasing? ";
+						getline(cin, cont); // mixed with ChatGPT generation
+						cont=to_lower(cont);
+						continue;
+					}
+
+					cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+					if(quantity > (c_stock[buying] - cstock_bought[buying])) {
+						cout<<"Sorry man, I don't have that much.\n";
+						cout<<"Would you like to keep purchasing? ";
+						getline(cin, cont);
+						cont=to_lower(cont);
+						break;
+
+					} else {
+						float final_price = quantity * c_prices[buying];
+						if(discount==2) final_price *= 0.75;
+						
+						cout<<"\nAre you sure you want to buy "<<quantity<<" "<< c_names[buying]<<" for: "<<final_price<<" gold"<<"?(yes/no): ";
+						getline(cin, buy_opt);
+						buy_opt = to_lower(buy_opt);
+
+						if (buy_opt == "no") {
+							cout<<"\nAlright then.";
+						} else {
+							if(gold < final_price) {
+								cout<<"\nWhoa there comrade! That's not enough for what you're asking!\n";
+							} else {
+								if (cstock_bought[buying] + quantity > c_stock[buying]) {
+									cout<<"\n\nSorry man, don't got all that.\n";
+									cout<<"Would you like to keep purchasing? ";
+									getline(cin, cont);
+									cont=to_lower(cont);
+								}
+								else {
+									gold -= final_price ;
+									cout<<"You have successfully bought "<<quantity<<" "<<c_names[buying]<<" for: "<<final_price<<"!\n";
+									cout<<"\nYou now have "<<gold<<" gold remaining.\n";
+
+									cstock_bought[buying]+= quantity;
+									cout<<"Would you like to keep purchasing? ";
+									getline(cin, cont);
+									cont=to_lower(cont);
+								}
+							}
+						}
+					}
+				}
+			}
+			break;
+			////Potions case AdelsonYadiel
+			case '3':  {
+
+				opt_menu = "potions";
+
+				float display_price;
+				cout<<"\nMelvin The Merchant: Oh, you're looking for potions? Excellent choice! Here's what I currently have in stock:\n\n";
+				for (int i =0; i <4; i++) {
+					display_price = p_prices[i];
+					if(discount==3) display_price *= 0.75;
+					cout<<p_names[i]<<" - "<<display_price<<" gold"<<" - "<<pstock_bought[i]<<"/"<<p_stock[i]<<" bought\n";
+				}
+
+				cout<<"\nWell then.. Which potion would you like?: ";
+				getline(cin, want);
+				want = to_lower(want);
+
+				buying = -1;
+				for (int i = 0; i<4; i++) {
+					if(want == p_names[i]) buying = i;
+				}
+
+				if(buying >= 0 && buying <= 3) {
+
+					cout<<"\n\nAlright! You want the "<<p_names[buying]<<". How many would you like?: ";
+					cin >> quantity;
+
+					if (cin.fail() || quantity <=0) {
+						cin.clear();
+						cin.ignore(numeric_limits<streamsize>::max(), '\n'); //ChatGPT help
+						cout<<"Please, enter a valid quantity.\n";
+						cout<<"Would you like to keep purchasing? ";
+						getline(cin, cont); // mixed with ChatGPT generation
+						cont=to_lower(cont);
+						continue;
+					}
+				
+					cin.ignore(numeric_limits<streamsize>::max(), '\n');
+				
+					if(quantity > (p_stock[buying] - pstock_bought[buying])) {
+						cout<<"Sorry, I don't have that many.\n";
+						cout<<"Would you like to keep purchasing? ";
+						getline(cin, cont);
+						cont=to_lower(cont);
+						break;
+
+					} else {
+
+						float final_price = quantity * p_prices[buying];
+						if(discount==3) final_price *= 0.75;
+
+						cout<<"\nAre you sure you want to buy "<<quantity<<" "<< p_names[buying]<<" for: "<<final_price<<" gold"<<"?(yes/no): ";
+						getline(cin, buy_opt);
+						buy_opt = to_lower(buy_opt);
+
+						if (buy_opt == "no") {
+							cout<<"\nAlright then.";
+						} else {
+							if(gold < final_price) {
+								cout<<"\nWhoa there! You don't have enough gold for that.\n";
+							} else {
+								if (pstock_bought[buying] + quantity > p_stock[buying]) {
+									cout<<"\n\nSorry, I don't have that many.\n";
+									cout<<"Would you like to keep purchasing? ";
+									getline(cin, cont);
+									cont=to_lower(cont);
+								}
+
+								else {
+									gold -= final_price ;
+									cout<<"You have successfully bought "<<quantity<<" "<<p_names[buying]<<" for: "<<final_price<<"!\n";
+									cout<<"\nYou now have "<<gold<<" gold remaining.\n";
+
+									pstock_bought[buying]+= quantity;
+									cout<<"Would you like to keep purchasing? ";
+									getline(cin, cont);
+									cont=to_lower(cont);
+								}
+							}
+						}
+					}
+				}
+			}
+			break;
+
+			//Food case JoseYadiel
+			case '4': {
+
+				opt_menu = "food";
+
+				float display_price;
+				cout<<"\nMelvin The Merchant: Oh, you're looking for food? Excellent choice! Here's what I currently have in stock:\n\n";
+				for (int i = 0; i < 4; i++) {
+					display_price = f_prices[i];
+					if(discount == 4) display_price *= 0.75;
+					cout<<f_names[i]<<" - "<<display_price<<" gold - "<<fstock_bought[i]<<"/"<<f_stock[i]<<" bought\n";
+				}
+
+				cout<<"\nWell then.. Which food item would you like?: ";
+				getline(cin, want);
+				want = to_lower(want);
+
+				buying = -1;
+				for (int i = 0; i < 4; i++) {
+					if (want == f_names[i]) buying = i;
+				}
+
+				if (buying >= 0 && buying <= 3) {
+
+					cout<<"\n\nAlright! You want the "<<f_names[buying]<<". How many would you like?: ";
+					cin >> quantity;
+
+					if (cin.fail() || quantity <=0) {
+						cin.clear();
+						cin.ignore(numeric_limits<streamsize>::max(), '\n'); //ChatGPT help
+						cout<<"Please, enter a valid quantity.\n";
+						cout<<"Would you like to keep purchasing? ";
+						getline(cin, cont); // mixed with ChatGPT generation
+						cont=to_lower(cont);
+						continue;
+					}
+
+					cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+					if (quantity > (f_stock[buying] - fstock_bought[buying])) {
+
+						cout<<"Sorry man, I don't have that much.\n";
+						cout<<"Would you like to keep purchasing? ";
+						getline(cin, cont);
+						cont = to_lower(cont);
+
+					} else {
+
+						float final_price = quantity * f_prices[buying];
+						if (discount == 4) final_price *= 0.75;
+
+						cout<<"\nAre you sure you want to buy "<<quantity<<" "<<f_names[buying]<<" for: "<<final_price<<" gold"<<"?(yes/no): ";
+						getline(cin, buy_opt);
+						buy_opt = to_lower(buy_opt);
+
+						if (buy_opt == "no") {
+							cout<<"\nAlright then.";
+						} else {
+
+							if (gold < final_price) {
+								cout<<"\nWhoa there comrade! That's not enough for what you're asking!\n";
+
+							} else {
+
+								if (fstock_bought[buying] + quantity > f_stock[buying]) {
+									cout<<"\n\nSorry man, don't got all that.\n";
+									cout<<"Would you like to keep purchasing? ";
+									getline(cin, cont);
+									cont = to_lower(cont);
+
+								} else {
+
+									gold -= final_price;
+									cout<<"You have successfully bought "<<quantity<<" "<<f_names[buying]<<" for: "<<final_price<<"!\n";
+									cout<<"\nYou now have "<<gold<<" gold remaining.\n";
+
+									fstock_bought[buying] += quantity;
+									cout<<"Would you like to keep purchasing? ";
+									getline(cin, cont);
+									cont = to_lower(cont);
+
+								}
+
+							}
+
+						}
+
+					}
+
+				}
+
+			}
+			break;
+			default:
+				cout<<"Invalid, try again.\n";
+				break;
+			}
+
+		}
+
+	}
+	return 0;
+}
