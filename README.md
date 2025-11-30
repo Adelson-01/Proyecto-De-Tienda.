@@ -12,7 +12,6 @@ Este proyecto es un programa en el que te encuentras en una tienda, puedes compr
 
 ## Version History
 
-## version 1.0
 ### v1.0
 - Primera versión del proyecto.
 - Menú básico con armas, ropa, pociones y comida.
