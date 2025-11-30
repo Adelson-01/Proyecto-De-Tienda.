@@ -48,6 +48,4 @@ Este proyecto es un programa en el que te encuentras en una tienda, puedes compr
 - Se actualizaron diálogos.
 
 ### v3.1
-- Se arreglaron varios bugs.
-### v3.1
 - Se resolvieron algunos bugs que generaban repeticion de confirmacion.
