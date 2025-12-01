@@ -1,4 +1,4 @@
-# Proyecto-De-Tienda.
+# Proyecto-De-Tienda
 Grupo - Adelson Schelmetty Torres, Jose Mujica Melendez, Yadiel Diaz Carmona.
 
 Este proyecto es un programa en el que te encuentras en una tienda, puedes comprar armas, armaduras, pociones y comida. El programa muestra precios, descuentos segun el dia y un menu para comprar.
